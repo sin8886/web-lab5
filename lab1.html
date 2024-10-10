@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas 笑脸</title>
+  </head>
+  <body>
+    <canvas id="smileyCanvas" width="400" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("smileyCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // 画浅绿色背景
+      ctx.fillStyle = "lightgreen"; // 设置背景颜色为浅绿色
+      ctx.fillRect(0, 0, canvas.width, canvas.height); // 填充整个画布区域
+
+      // 画脸部圆圈
+      ctx.beginPath();
+      ctx.arc(200, 200, 100, 0, Math.PI * 2, true); // 外圈
+      ctx.fillStyle = "yellow"; // 设置脸部颜色为黄色
+      ctx.fill();
+      ctx.stroke();
+
+      // 画左眼
+      ctx.beginPath();
+      ctx.arc(160, 160, 20, 0, Math.PI * 2, true); // 左眼
+      ctx.fillStyle = "black";
+      ctx.fill();
+
+      // 画右眼
+      ctx.beginPath();
+      ctx.arc(240, 160, 20, 0, Math.PI * 2, true); // 右眼
+      ctx.fillStyle = "black";
+      ctx.fill();
+
+      // 画笑脸弧线
+      ctx.beginPath();
+      ctx.arc(200, 200, 70, 0, Math.PI, false); // 下弧
+      ctx.strokeStyle = "black";
+      ctx.stroke();
+
+      // 添加文字
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center"; // 让文字居中
+      ctx.fillText("Hello, Canvas!", 200, 320); // 在笑脸下方添加文字
+    </script>
+  </body>
+</html>
