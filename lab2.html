@@ -3,13 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Geolocation 练习</title>
+    <title>高德地图 Geolocation 示例</title>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=957ffcb13ee236b34fdca3427f923b23"></script>
   </head>
   <body>
     <h1>获取您的地理位置</h1>
-    <button onclick="getGeolocation()">获取 Geolocation</button>
+    <button onclick="getLocation()">获取高德定位</button>
     <p id="geolocation">等待获取地理位置...</p>
 
-    <script src="geolocation.js"></script>
+    <script>
+      function getLocation() {
+        const output = document.getElementById("geolocation");
+        output.innerHTML = "获取地理位置中...";
+
+        // 引入高德地图 Geolocation 插件
+        AMap.plugin("AMap.Geolocation", function () {
+          const geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true, // 是否使用高精度定位
+            timeout: 10000, // 超时时间（单位：毫秒）
+            maximumAge: 0, // 不缓存位置
+            convert: true, // 是否自动偏移坐标
+          });
+
+          // 获取当前位置
+          geolocation.getCurrentPosition(function (status, result) {
+            if (status === "complete") {
+              // 定位成功
+              const latitude = result.position.lat; // 获取纬度
+              const longitude = result.position.lng; // 获取经度
+              output.innerHTML = `纬度: ${latitude}<br>经度: ${longitude}`;
+            } else {
+              // 定位失败，显示错误信息
+              output.innerHTML = "无法获取位置信息，错误：" + result.message;
+            }
+          });
+        });
+      }
+    </script>
   </body>
 </html>
